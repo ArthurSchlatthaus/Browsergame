@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand" href="{{route('welcome')}}">
+                <img src="/images/logo.svg" alt="" height="80">
+            </a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('profile')}}">
+                            <i class="fa-solid fa-user"></i>&nbsp;{{ __('custom.navbar_profile') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('inventory')}}">
+                            <i class="fa-solid fa-boxes-stacked"></i>&nbsp;{{ __('custom.navbar_inventory') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('messages')}}">
+                            <i class="fa-solid fa-message"></i>&nbsp;{{ __('custom.navbar_messages') }}</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('missions')}}">
+                            <i class="fa-solid fa-scroll"></i>&nbsp;{{ __('custom.navbar_mission') }}</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-shop"></i>&nbsp;{{ __('custom.navbar_shop') }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{route('generalStore')}}">
+                                    &nbsp;{{ __('custom.navbar_shop_general') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{route('weaponStore')}}">
+                                    &nbsp;{{ __('custom.navbar_shop_weapon') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{route('armorStore')}}">
+                                    &nbsp;{{ __('custom.navbar_shop_armor') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('blacksmith')}}">
+                            <i class="fa-solid fa-hammer"></i>&nbsp;{{ __('custom.navbar_blacksmith') }}</a>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('ranking')}}">
+                            <i class="fa-solid fa-ranking-star"></i>&nbsp;{{ __('custom.navbar_ranking') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('settings')}}">
+                            <i class="fa-solid fa-gears"></i>&nbsp;{{ __('custom.navbar_settings') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('changelog')}}">
+                            <i class="fa-solid fa-gear"></i>&nbsp;{{ __('custom.navbar_changelog') }}</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <x-language></x-language>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{{url('logout')}}">
+                            @csrf
+                            <button type="submit"
+                                    class="btn btn-dark btn-block">{{ __('custom.navbar_logout') }}</button>
+                        </form>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</nav>
+<style>
+    ul {
+        list-style-type: none;
+    }
+</style>
+@if(env('APP_DEBUG'))
+    <style>
+        .dropdown-menu, .navbar {
+            background-color: green !important;
+        }
+    </style>
+@endif

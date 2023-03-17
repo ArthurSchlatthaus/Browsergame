@@ -1,0 +1,25 @@
+<?php
+
+namespace App\View\Components;
+
+use App\Models\Player;
+use Illuminate\View\Component;
+
+class content extends Component
+{
+
+    public function __construct()
+    {
+
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View|\Closure|string
+     */
+    public function render()
+    {
+        return view('components.content');
+    }
+}

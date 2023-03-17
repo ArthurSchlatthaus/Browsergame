@@ -1,0 +1,77 @@
+@if(auth()->user() !== null)
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        Echo.private('notifyChannel.{{auth()->user()->api_token}}')
+            .listen('.sendNotify', (e) => {
+                document.getElementById("notifyText").innerHTML = e.data;
+                $(".notifyToast").toast('show');
+            });
+        Echo.private('successChannel.{{auth()->user()->api_token}}')
+            .listen('.sendSuccess', (e) => {
+                document.getElementById("successAlert").innerHTML = e.data;
+                document.getElementById("successAlert").style.display = "block";
+            });
+        Echo.private('infoChannel.{{auth()->user()->api_token}}')
+            .listen('.sendInfo', (e) => {
+                document.getElementById("infoAlert").innerHTML = e.data;
+                document.getElementById("infoAlert").style.display = "block";
+            });
+    </script>
+@endif
+
+
+Inv:
+<h4>Weapons:</h4>
+            <div>
+                <ul>
+                    @foreach(auth()->user()->player->inventory as $inventoryItem)
+                        @if($inventoryItem->item->type === 0 and $inventoryItem->count > 0)
+                            <li>{{ __('items.item_id_'.$inventoryItem->vnum) }}
+                                <form method="POST" action="{{url('equipItem')}}">
+                                    @csrf
+                                    <input name="api_token" type="hidden" value="{{auth()->user()->api_token}}">
+                                    <input name="inventoryId" id="inventoryIdWeapon" type="hidden"
+                                           value="{{$inventoryItem->id}}">
+                                    <button class="btn btn-primary-outline btn-dark btn-sm" type="submit"
+                                            onclick="document.getElementById('inventoryIdWeapon').value='{{$inventoryItem->id}}'">
+                                        equip
+                                    </button>
+                                </form>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+            <h4>Armors:</h4>
+            <div>
+                <ul>
+                    @foreach(auth()->user()->player->inventory as $inventoryItem)
+                        @if($inventoryItem->item->type === 1 and $inventoryItem->count > 0)
+                            <li>{{ __('items.item_id_'.$inventoryItem->vnum) }}
+                                <form method="POST" action="{{url('equipItem')}}">
+                                    @csrf
+                                    <input name="api_token" type="hidden" value="{{auth()->user()->api_token}}">
+                                    <input name="inventoryId" id="inventoryIdBody" type="hidden"
+                                           value="{{$inventoryItem->id}}">
+                                    <button class="btn btn-primary-outline btn-dark btn-sm" type="submit"
+                                            onclick="document.getElementById('inventoryIdBody').value='{{$inventoryItem->id}}'">
+                                        equip
+                                    </button>
+                                </form>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+            <h4>Potions:</h4>
+            <div>
+                <ul>
+                    @foreach(auth()->user()->player->inventory as $inventoryItem)
+                        @if($inventoryItem->item->type === 2 and $inventoryItem->count > 0)
+                            <li>{{ __('items.item_id_'.$inventoryItem->vnum) . ' (' . $inventoryItem->count.')' }}
+                                <button class="btn btn-primary-outline btn-dark btn-sm disabled">use</button>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
